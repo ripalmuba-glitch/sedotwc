@@ -1,9 +1,9 @@
-/* --- 1. Variables --- */
+/* --- 1. Variables & Setup --- */
 :root {
-    --navy-dark: #0f172a;
-    --navy-light: #1e293b;
-    --gold: #c29d59;
-    --gold-hover: #d4af37;
+    --navy-dark: #0f172a;  /* Warna Gelap Utama */
+    --navy-light: #1e293b; /* Warna Gelap Kedua */
+    --gold: #c29d59;       /* Warna Emas Mewah */
+    --gold-hover: #d4af37; /* Warna Emas saat disentuh */
     --white: #ffffff;
     --light-gray: #f8f9fa;
     
@@ -11,71 +11,69 @@
     --font-sans: 'Manrope', sans-serif;
 }
 
-/* --- 2. Reset & Typography --- */
+/* --- 2. Global Reset --- */
 body {
     font-family: var(--font-sans);
     color: var(--navy-light);
-    overflow-x: hidden;
     background-color: var(--white);
+    overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
 }
 
+a { text-decoration: none; transition: 0.3s; }
+ul { padding-left: 0; }
+li { list-style: none; }
+
+/* Utility Classes */
 .font-serif { font-family: var(--font-serif); }
 .font-sans { font-family: var(--font-sans); }
 .text-gold { color: var(--gold) !important; }
 .bg-gold { background-color: var(--gold); }
-.bg-darker { background-color: #020617; }
-.bg-light-gray { background-color: #f9fafb; }
+.bg-darker { background-color: var(--navy-dark); }
+.bg-light-gray { background-color: var(--light-gray); }
 
 .uppercase { text-transform: uppercase; }
 .tracking-wide { letter-spacing: 1px; }
 .tracking-widest { letter-spacing: 2px; }
 .lh-1 { line-height: 1; }
 
-/* --- 3. Navbar Customization --- */
+/* --- 3. Navbar Styling --- */
 .navbar {
     padding: 15px 0;
     background: transparent;
     transition: all 0.4s ease;
 }
 
+/* Saat discroll menjadi gelap */
 .navbar.scrolled {
     background: var(--navy-dark);
     padding: 10px 0;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
 }
 
-/* Logo Styles */
+/* Logo Styling */
 .logo-icon {
-    height: 55px; /* Ukuran tinggi gambar logo truk */
+    height: 50px;
     width: auto;
 }
+.logo-text-main { font-size: 1.8rem; }
+.logo-text-sub { font-size: 10px; }
 
-.logo-text-main {
-    font-size: 1.8rem; /* Ukuran SEDOT WC */
-}
-
-.logo-text-sub {
-    font-size: 10px; /* Ukuran PREMIUM SERVICE */
-}
-
-/* Media Query untuk Mobile agar logo pas */
-@media (max-width: 768px) {
-    .logo-icon { height: 40px; }
-    .logo-text-main { font-size: 1.4rem; }
-    .logo-text-sub { font-size: 9px; }
-}
-
-
+/* Nav Links */
 .nav-link {
     font-family: var(--font-sans);
     font-weight: 500;
     font-size: 0.9rem;
     letter-spacing: 0.5px;
     position: relative;
+    color: rgba(255,255,255,0.8) !important;
+}
+
+.nav-link.active, .nav-link:hover {
+    color: var(--white) !important;
 }
 
 .nav-link::after {
@@ -98,11 +96,13 @@ h1, h2, h3, h4, h5 {
 .btn-gold:hover {
     background-color: transparent;
     color: var(--gold);
+    transform: translateY(-3px);
 }
 
 .btn-white {
     background: white; color: var(--navy-dark);
     border: 1px solid white;
+    transition: 0.3s;
 }
 .btn-white:hover {
     background: transparent; color: white;
@@ -119,25 +119,32 @@ h1, h2, h3, h4, h5 {
     color: white;
 }
 
-.hover-lift:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.15); }
+.shadow-gold { box-shadow: 0 10px 20px rgba(194, 157, 89, 0.3); }
+.hover-lift:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 
 /* --- 5. Hero Section --- */
 .hero-section {
     min-height: 100vh;
-    /* Ganti dengan nama file gambar Anda */
-    background: url('logo.png') no-repeat center center/cover;
+    background: url('Gambar\ WhatsApp\ 2025-11-13\ pukul\ 22.05.53_97c51f2e.jpg') no-repeat center center/cover;
+    background-color: var(--navy-dark);
+    /* PENTING: Pastikan di HTML style="..." url gambar benar */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     margin-top: -86px;
-    padding-top: 100px;
+    padding-top: 120px;
 }
 
 .hero-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(45deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.8));
+    background: linear-gradient(45deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.7));
+    z-index: 1;
 }
 
 /* Mouse Scroll Animation */
 .scroll-indicator {
     position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
+    z-index: 3;
 }
 .mouse {
     width: 26px; height: 40px;
@@ -157,39 +164,56 @@ h1, h2, h3, h4, h5 {
     100% { opacity: 0; top: 20px; }
 }
 
-/* --- 6. Services --- */
+/* --- 6. About Section --- */
+.floating-quote {
+    border-left: 4px solid var(--gold);
+}
+
+/* --- 7. Services Section --- */
+.py-6 { padding-top: 5rem; padding-bottom: 5rem; }
+
 .service-card {
     transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
     border-bottom: 1px solid #eee;
+    border-radius: 8px;
 }
 .service-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     border-color: var(--gold) !important;
 }
-.service-card .icon-box { color: var(--navy-dark); }
+.service-card .icon-box { color: var(--navy-dark); transition: 0.3s; }
 .service-card:hover .icon-box { color: var(--gold); }
 
-/* --- 7. Area Section --- */
+.separator { width: 80px; height: 3px; margin: 0 auto; }
+
+/* --- 8. Area Section --- */
 .bg-pattern {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     background-image: radial-gradient(#ffffff 1px, transparent 1px);
     background-size: 30px 30px;
     opacity: 0.05;
 }
-.separator { width: 80px; height: 3px; }
 
 .hover-border-gold {
     transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.1) !important;
 }
 .hover-border-gold:hover {
     border-color: var(--gold) !important;
-    background-color: rgba(194, 157, 89, 0.05) !important;
+    background-color: rgba(194, 157, 89, 0.1) !important;
 }
 
-/* --- 8. Preloader --- */
+.badge { letter-spacing: 0.5px; }
+
+/* --- 9. Testimonials --- */
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    filter: invert(1);
+}
+
+/* --- 10. Preloader --- */
 .preloader {
     position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
     background: var(--navy-dark);
@@ -198,10 +222,18 @@ h1, h2, h3, h4, h5 {
     transition: opacity 0.5s;
 }
 
-/* --- 9. Mobile Specific --- */
+/* --- 11. Mobile Sticky Bar --- */
+.fixed-bottom { z-index: 1030; }
+
+/* Responsive Adjustments */
 @media (max-width: 992px) {
     .hero-section { text-align: center; padding-top: 150px; }
     .display-2 { font-size: 2.5rem; }
+    
+    .navbar-brand .logo-icon { height: 40px; }
+    .logo-text-main { font-size: 1.4rem; }
+    .logo-text-sub { font-size: 8px; }
+    
     body { padding-bottom: 60px; }
     footer { padding-bottom: 80px; }
 }
